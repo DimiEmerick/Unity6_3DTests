@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class PlayerBase : MonoBehaviour
 {
+    public Animator animator;
     public Rigidbody body;               //  Corpo físico do jogador, usado para aplicar forças físicas
     public float speed = 2f;
     public float turnSpeed = 250f;
     public float forceJump = 3f;
-    public bool isGrounded;
 
     [Header("Ground Check")]
     public LayerMask groundMask;         //  Layer que representa o chão
@@ -14,6 +14,8 @@ public class PlayerBase : MonoBehaviour
     public float groundDistance = .25f;  //  Tamanho do check (raio da esfera)
 
     private float _currentSpeed;
+    private bool _isGrounded;
+    private bool _isRunning;
 
     private void Start()
     {
@@ -37,8 +39,18 @@ public class PlayerBase : MonoBehaviour
         if (Input.GetKey(KeyCode.A)) direction -= camRight;    //  Esquerda
         if (Input.GetKey(KeyCode.S)) direction -= camForward;  //  Trás
         if (Input.GetKey(KeyCode.D)) direction += camRight;    //  Direita
-        if (Input.GetKeyDown(KeyCode.LeftShift)) _currentSpeed = speed * 2;
-        else if (Input.GetKeyUp(KeyCode.LeftShift)) _currentSpeed = speed;
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            _isRunning = true;
+            _currentSpeed = speed * 2;
+            animator.SetBool("Sprint", true);
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            _isRunning = false;
+            _currentSpeed = speed;
+            animator.SetBool("Sprint", false);
+        }
         if (direction != Vector3.zero)  //  Só movimenta se houver direção pressionada
         {
             direction = direction.normalized;  //  Normaliza a direção (evita dobro de velodiade nas diagonais)
@@ -47,20 +59,40 @@ public class PlayerBase : MonoBehaviour
             //  Rotaciona o jogador suavemente para olhar na direção de movimento
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+            animator.SetBool("Run", true);
         }
+        else animator.SetBool("Run", false);
     }
 
     private void Jump()
     {
         //  Só pula se estiver no chão e a tecla Espaço for pressionada
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded) body.linearVelocity = Vector3.up * forceJump;
+        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
+        {
+            body.linearVelocity = Vector3.up * forceJump;
+            if (_isRunning) animator.SetTrigger("JumpRun");
+            else animator.SetTrigger("Jump");
+        }
+    }
+
+    private void Attack()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0) && _isGrounded)
+            animator.SetTrigger("Punch");
     }
 
     private void Update()
     {
         //  Posiciona uma esfera invisível que checa se o personagem está tocando o chão
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        _isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        if (!_isGrounded) animator.SetBool("Falling", true);
+        else
+        {
+            animator.SetBool("Falling", false);
+            animator.SetTrigger("Land");
+        } 
         Walk();
         Jump();
+        Attack();
     }
 }
