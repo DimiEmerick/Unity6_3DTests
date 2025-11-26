@@ -40,9 +40,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 57201820875629958}
-  - component: {fileID: 1444969171130317591}
   - component: {fileID: 8451228435556868166}
   - component: {fileID: 2956514572490023970}
+  - component: {fileID: 5096977452035514700}
   m_Layer: 0
   m_Name: PFB_PlayerTest
   m_TagString: Untagged
@@ -67,28 +67,6 @@ Transform:
   - {fileID: 6067222428445074861}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1444969171130317591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4666356294609135495}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc628ce4a724e534ab3087b74d23fe1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerBase
-  body: {fileID: 2956514572490023970}
-  speed: 5
-  turnSpeed: 250
-  forceJump: 7
-  isGrounded: 0
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 8
-  groundCheck: {fileID: 6067222428445074861}
-  groundDistance: 0.25
 --- !u!65 &8451228435556868166
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -137,6 +115,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5096977452035514700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4666356294609135495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca093fda6dffa354d814481f9e1c6738, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerTest
+  body: {fileID: 2956514572490023970}
+  acelleration: 1.01
+  maxSpeed: 20
+  turnSpeed: 250
+  forceJump: 10
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 8
+  groundCheck: {fileID: 6067222428445074861}
+  groundDistance: 0.25
 --- !u!1 &5848065009876636759
 GameObject:
   m_ObjectHideFlags: 0
