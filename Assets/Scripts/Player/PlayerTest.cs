@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class PlayerTest : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class PlayerTest : MonoBehaviour
     public Transform groundCheck;        //  Um vazio posicionado no pé do personagem
     public float groundDistance = .25f;  //  Tamanho do check (raio da esfera)
 
+    private Vector3 _lastDirection;
     private float _baseMaxSpeed;
     private float _boostSpeed;
     private float _currentSpeed;
@@ -22,7 +24,7 @@ public class PlayerTest : MonoBehaviour
     private void Start()
     {
         _baseMaxSpeed = maxSpeed;
-        _currentSpeed = acelleration;
+        _currentSpeed = 0f;
         _boostSpeed = maxSpeed * 2f;
     }
 
@@ -56,15 +58,21 @@ public class PlayerTest : MonoBehaviour
         if (direction != Vector3.zero)  //  Só movimenta se houver direção pressionada
         {
             direction = direction.normalized;  //  Normaliza a direção (evita dobro de velodiade nas diagonais)
+            _lastDirection = direction;
             //  Move o jogador usando incremento da posição
-            _currentSpeed *= acelleration;
-            transform.position += _currentSpeed * Time.deltaTime * direction;
+            _currentSpeed += acelleration;
             if (_currentSpeed >= maxSpeed) _currentSpeed = maxSpeed;
+            transform.position += _currentSpeed * Time.deltaTime * direction;
             //  Rotaciona o jogador suavemente para olhar na direção de movimento
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
         }
-        else _currentSpeed = acelleration;
+        else
+        {
+            _currentSpeed -= acelleration;
+            if (_currentSpeed <= 0) _currentSpeed = 0;
+            else transform.position += _currentSpeed * Time.deltaTime * _lastDirection;
+        }
     }
 
     private void Jump()
@@ -79,10 +87,8 @@ public class PlayerTest : MonoBehaviour
     private void Update()
     {
         //  Posiciona uma esfera invisível que checa se o personagem está tocando o chão
-        _isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask); 
+        _isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         Walk();
         Jump();
-
-        Debug.Log(_currentSpeed);
     }
 }
