@@ -99,10 +99,11 @@ GameObject:
   m_Component:
   - component: {fileID: 7987582899061961381}
   - component: {fileID: 2875970006392199380}
+  - component: {fileID: 7751359399559996960}
   - component: {fileID: 1519495872938035951}
   - component: {fileID: 5537874167983960960}
   m_Layer: 0
-  m_Name: PFB_PlayerSonic
+  m_Name: PFB_PlayerNinja
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,7 +142,8 @@ MonoBehaviour:
   animator: {fileID: 6973807661727846085}
   body: {fileID: 5537874167983960960}
   velocimeter: {fileID: 0}
-  acelleration: 0.5
+  health: {fileID: 7751359399559996960}
+  acelleration: 0.1
   maxSpeed: 20
   turnSpeed: 250
   forceJump: 10
@@ -150,6 +152,23 @@ MonoBehaviour:
     m_Bits: 8
   groundCheck: {fileID: 8750392193913695956}
   groundDistance: 0.25
+--- !u!114 &7751359399559996960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4041960229821209911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e5442b93e3435468504929cb91071e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthBase
+  startLife: 10
+  currentLife: 0
+  healMultiplier: 1
+  damageMultiplier: 1
+  destroyOnKill: 0
 --- !u!65 &1519495872938035951
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -6,6 +6,9 @@ public class PlayerSpeed : MonoBehaviour
     public Animator animator;
     public Rigidbody body;               //  Corpo físico do jogador, usado para aplicar forças físicas
     public TextMeshProUGUI velocimeter;
+    public HealthBase health;
+
+    [Header("Movement")]
     public float acelleration = 1.0001f;
     public float maxSpeed = 3f;
     public float turnSpeed = 250f;
@@ -72,7 +75,7 @@ public class PlayerSpeed : MonoBehaviour
         }
         else
         {
-            _currentSpeed -= acelleration;
+            _currentSpeed -= acelleration * 2;
             if (_currentSpeed <= 0)
             {
                 _currentSpeed = 0;
@@ -82,14 +85,10 @@ public class PlayerSpeed : MonoBehaviour
         }
     }
 
-    private void Jump()
+    public void Jump()
     {
-        //  Só pula se estiver no chão e a tecla Espaço for pressionada
-        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
-        {
-            body.linearVelocity = Vector3.up * forceJump;
-            animator.SetTrigger("Jump");
-        }
+        body.linearVelocity = Vector3.up * forceJump;
+        animator.SetTrigger("Jump");
     }
 
     private void Update()
@@ -103,7 +102,8 @@ public class PlayerSpeed : MonoBehaviour
             animator.SetTrigger("Land");
         }
         Walk();
-        Jump();
+        //  Só pula se estiver no chão e a tecla Espaço for pressionada
+        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded) Jump();
         velocimeter.text = _currentSpeed.ToString();
     }
 }
