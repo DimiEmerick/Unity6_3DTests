@@ -22,7 +22,7 @@ public class PlayerSpeed : MonoBehaviour
     private Vector3 _lastDirection;
     private float _baseMaxSpeed;
     private float _boostSpeed;
-    private float _currentSpeed;
+    [SerializeField] private float _currentSpeed;
     private bool _isGrounded;
     private bool _isBoosting;
 
@@ -65,9 +65,10 @@ public class PlayerSpeed : MonoBehaviour
             direction = direction.normalized;  //  Normaliza a direção (evita dobro de velodiade nas diagonais)
             _lastDirection = direction;
             //  Move o jogador usando incremento da posição
-            _currentSpeed += acelleration;
+            _currentSpeed += acelleration * Time.deltaTime;
             if (_currentSpeed >= maxSpeed) _currentSpeed = maxSpeed;
-            transform.position += _currentSpeed * Time.deltaTime * direction;
+            transform.position += _currentSpeed * direction;
+            animator.speed = _currentSpeed;
             //  Rotaciona o jogador suavemente para olhar na direção de movimento
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
@@ -75,19 +76,21 @@ public class PlayerSpeed : MonoBehaviour
         }
         else
         {
-            _currentSpeed -= acelleration * 2;
+            _currentSpeed -= acelleration * 2 * Time.deltaTime;
             if (_currentSpeed <= 0)
             {
                 _currentSpeed = 0;
                 animator.SetBool("Run", false);
+                animator.speed = 1;
             }
-            else transform.position += _currentSpeed * Time.deltaTime * _lastDirection;
+            else transform.position += _currentSpeed * _lastDirection;
         }
     }
 
     public void Jump()
     {
         body.linearVelocity = Vector3.up * forceJump;
+        animator.speed = 1;
         animator.SetTrigger("Jump");
     }
 
