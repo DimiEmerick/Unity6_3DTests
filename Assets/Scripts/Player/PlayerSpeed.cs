@@ -62,13 +62,13 @@ public class PlayerSpeed : MonoBehaviour
         }
         if (direction != Vector3.zero)  //  Só movimenta se houver direção pressionada
         {
-            direction = direction.normalized;  //  Normaliza a direção (evita dobro de velodiade nas diagonais)
+            direction = direction.normalized;  //  Normaliza a direção (evita dobro de velocidade nas diagonais)
             _lastDirection = direction;
             //  Move o jogador usando incremento da posição
             _currentSpeed += acelleration * Time.deltaTime;
             if (_currentSpeed >= maxSpeed) _currentSpeed = maxSpeed;
-            transform.position += _currentSpeed * direction;
-            animator.speed = _currentSpeed;
+            transform.position += _currentSpeed * Time.deltaTime * direction;
+            animator.speed = (_currentSpeed / _baseMaxSpeed);
             //  Rotaciona o jogador suavemente para olhar na direção de movimento
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
@@ -83,10 +83,17 @@ public class PlayerSpeed : MonoBehaviour
                 animator.SetBool("Run", false);
                 animator.speed = 1;
             }
-            else transform.position += _currentSpeed * _lastDirection;
+            else transform.position += _currentSpeed * Time.deltaTime * _lastDirection;
         }
     }
 
+    /*    PULO
+     *    Para pular, o código pega o Rigidbody do Player e aplica uma velocidade linear (em linha reta), essa velocidade
+     * é um Vetor para cima (0, 1, 0) multiplicado pela variável de força do pulo que vai determinar o quão alto o Player
+     * irá pular.
+     *    Também é feita uma alteração na velocidade da animação para o valor padrão (1), isso evita que a velocidade da 
+     * animação seja a mesma da velocidade da corrida que está sendo alterada constantemente no método de andar Walk().
+     */
     public void Jump()
     {
         body.linearVelocity = Vector3.up * forceJump;
@@ -94,9 +101,22 @@ public class PlayerSpeed : MonoBehaviour
         animator.SetTrigger("Jump");
     }
 
+    /*    UPDATE
+     *    É posicionado uma esfera invisível que checa se o Player está tocando o chão, essa esfera está posicionada na
+     * mesma posição do transform de groundCheck, possui um raio do tamanho de groundDistance e uma máscara da camada
+     * que vai ser considerada o "chão" (groundMask). Se a esfera estiver colidindo com qualquer objeto que tenha essa
+     * camada, retorna true para a variável _isGrounded, ou seja, o Player está tocando o chão.
+     *    É feito uma checagem se o Player não estiver no chão, então a animação de cair "Falling", será marcada como true.
+     * Caso ele estiver tocando o chão, "Falling" será false e o trigger de aterrisagem "Land" será marcado (é configurado
+     * no Animator para a animação de aterrisagem só acontecer após a animação de cair, para ele não ficar repetindo a
+     * animação de aterrisagem a cada frame.
+     *    O método de andar é executado.
+     *    O método de pulo só é executado se o Player estiver no chão e apertar a tecla Espaço.
+     *    O texto do velocímetro é alterado constantemente para a velocidade atual (_currentSpeed), que é transformada em
+     * string para poder ser exibida na UI. 
+     */
     private void Update()
     {
-        //  Posiciona uma esfera invisível que checa se o personagem está tocando o chão
         _isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if (!_isGrounded) animator.SetBool("Falling", true);
         else
@@ -105,7 +125,6 @@ public class PlayerSpeed : MonoBehaviour
             animator.SetTrigger("Land");
         }
         Walk();
-        //  Só pula se estiver no chão e a tecla Espaço for pressionada
         if (Input.GetKeyDown(KeyCode.Space) && _isGrounded) Jump();
         velocimeter.text = _currentSpeed.ToString();
     }
