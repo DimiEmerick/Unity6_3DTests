@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyBase : MonoBehaviour
 {
     public HealthBase health;
-    public Collider Collider;
+    public Collider enemyCollider;
     public bool lookAtPlayer = false;
 
     private PlayerSpeed _player;
@@ -13,7 +13,7 @@ public class EnemyBase : MonoBehaviour
         _player = FindAnyObjectByType<PlayerSpeed>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.TryGetComponent<PlayerSpeed>(out var player)) player.health.Damage(1);
     }
@@ -28,8 +28,16 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
-    private void OnKill()
+    protected virtual void OnKill()
     {
-        Collider.gameObject.SetActive(false);
+        enemyCollider.gameObject.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (lookAtPlayer)
+        {
+            transform.LookAt(_player.transform.position);
+        }
     }
 }

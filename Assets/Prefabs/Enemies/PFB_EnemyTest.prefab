@@ -138,7 +138,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBase
   health: {fileID: 5621485450580817850}
-  Collider: {fileID: 4858927392839862216}
+  enemyCollider: {fileID: 4858927392839862216}
+  visionCollider: {fileID: 0}
   lookAtPlayer: 0
 --- !u!114 &5621485450580817850
 MonoBehaviour:
