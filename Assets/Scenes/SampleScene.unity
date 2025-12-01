@@ -4395,7 +4395,6 @@ GameObject:
   - component: {fileID: 743911217}
   - component: {fileID: 743911216}
   - component: {fileID: 743911219}
-  - component: {fileID: 743911220}
   - component: {fileID: 743911218}
   m_Layer: 0
   m_Name: Slime
@@ -4502,27 +4501,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.1, y: 1, z: 1.1}
   m_Center: {x: 0, y: 0.4, z: 0}
---- !u!135 &743911220
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 743911214}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 7
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &768299713
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4580,38 +4558,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cae08f22f541bb4b8d41b5cd2d32b72, type: 3}
---- !u!1 &812545857 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4889092148790788290, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
-  m_PrefabInstance: {fileID: 1750756479}
-  m_PrefabAsset: {fileID: 0}
---- !u!54 &812545862
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 812545857}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -9456,6 +9402,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 768209625108310490, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
+      propertyPath: m_Size.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 768209625108310490, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
+      propertyPath: m_Size.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519495872938035951, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
+      propertyPath: m_Size.z
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 2875970006392199380, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
       propertyPath: velocimeter
       value: 
@@ -9469,8 +9427,16 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 4889092148790788290, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4889092148790788290, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
       propertyPath: m_TagString
       value: GroundCheck
+      objectReference: {fileID: 0}
+    - target: {fileID: 5537874167983960960, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7751359399559996960, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
       propertyPath: lifeText
@@ -9524,10 +9490,7 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 2766489008993296009, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4889092148790788290, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 812545862}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
 --- !u!1 &1781198285
 GameObject:
