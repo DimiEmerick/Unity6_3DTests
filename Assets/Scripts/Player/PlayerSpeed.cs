@@ -4,95 +4,117 @@ using TMPro;
 public class PlayerSpeed : MonoBehaviour
 {
     public Animator animator;
-    public Rigidbody body;               //  Corpo físico do jogador, usado para aplicar forças físicas
+    public Rigidbody body;               //  Corpo fï¿½sico do jogador, usado para aplicar forï¿½as fï¿½sicas
     public TextMeshProUGUI velocimeter;
     public HealthBase health;
 
     [Header("Movement")]
-    public float acelleration = 1.0001f;
+    public float acceleration = 1.0001f;
     public float maxSpeed = 3f;
     public float turnSpeed = 250f;
     public float forceJump = 3f;
 
     [Header("Ground Check")]
-    public LayerMask groundMask;         //  Layer que representa o chão
-    public Transform groundCheck;        //  Um vazio posicionado no pé do personagem
+    public LayerMask groundMask;         //  Layer que representa o chï¿½o
+    public Transform groundCheck;        //  Um vazio posicionado no pï¿½ do personagem
     public float groundDistance = .25f;  //  Tamanho do check (raio da esfera)
 
-    private Vector3 _lastDirection;
-    private float _baseMaxSpeed;
+    //  private Vector3 _lastDirection;
     private float _boostSpeed;
     [SerializeField] private float _currentSpeed;
     private bool _isGrounded;
-    private bool _isBoosting;
+    //  private bool _isBoosting;
 
     private void Start()
     {
-        _baseMaxSpeed = maxSpeed;
         _currentSpeed = 0f;
         _boostSpeed = maxSpeed * 2f;
     }
 
     private void Walk()
     {
-        //  Direção da câmera, usada para mover o player relativo ao ângulo atual da câmera
+        // 1. CÃ¡lculo da DireÃ§Ã£o
         Vector3 camForward = Camera.main.transform.forward;
         Vector3 camRight = Camera.main.transform.right;
-        //  Zera o eixo Y pra evitar inclinação de movimento
         camForward.y = 0f;
         camRight.y = 0f;
-        //  Normaliza vetores para garantir magnitude 1 (evita aumento de velocidade)
         camForward.Normalize();
         camRight.Normalize();
-        Vector3 direction = Vector3.zero;  //  Direção final do movimento
-        //  Recebe entrada do teclado e soma vetores
-        if (Input.GetKey(KeyCode.W)) direction += camForward;  //  Frente
-        if (Input.GetKey(KeyCode.A)) direction -= camRight;    //  Esquerda
-        if (Input.GetKey(KeyCode.S)) direction -= camForward;  //  Trás
-        if (Input.GetKey(KeyCode.D)) direction += camRight;    //  Direita
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        Vector3 direction = Vector3.zero;
+
+        if (Input.GetKey(KeyCode.W)) direction += camForward;
+        if (Input.GetKey(KeyCode.A)) direction -= camRight;
+        if (Input.GetKey(KeyCode.S)) direction -= camForward;
+        if (Input.GetKey(KeyCode.D)) direction += camRight;
+
+        // 2. LÃ³gica de Boost
+        float currentMaxSpeed = maxSpeed;
+        if (Input.GetKey(KeyCode.LeftShift)) // Use GetKey para manter o boost
         {
-            _isBoosting = true;
-            maxSpeed = _boostSpeed;
+            currentMaxSpeed = _boostSpeed;
         }
-        else if (Input.GetKeyUp(KeyCode.LeftShift))
+
+        if (direction != Vector3.zero)
         {
-            _isBoosting = false;
-            maxSpeed = _baseMaxSpeed;
-        }
-        if (direction != Vector3.zero)  //  Só movimenta se houver direção pressionada
-        {
-            direction = direction.normalized;  //  Normaliza a direção (evita dobro de velocidade nas diagonais)
-            _lastDirection = direction;
-            //  Move o jogador usando incremento da posição
-            _currentSpeed += acelleration * Time.deltaTime;
-            if (_currentSpeed >= maxSpeed) _currentSpeed = maxSpeed;
-            transform.position += _currentSpeed * Time.deltaTime * direction;
-            animator.speed = (_currentSpeed / _baseMaxSpeed);
-            //  Rotaciona o jogador suavemente para olhar na direção de movimento
+            direction = direction.normalized;
+            //  _lastDirection = direction;
+
+            // 3. Aplica a ForÃ§a (AceleraÃ§Ã£o)
+            body.AddForce(direction * acceleration, ForceMode.Impulse);
+
+            // 4. Limita a Velocidade (O Ponto Chave)
+            // Pegamos a velocidade atual no plano XZ
+            Vector3 flatVelocity = new Vector3(body.linearVelocity.x, 0f, body.linearVelocity.z);
+
+            if (flatVelocity.magnitude > currentMaxSpeed)
+            {
+                // Se a velocidade exceder o limite, a normalizamos e multiplicamos pelo limite
+                Vector3 limitedVelocity = flatVelocity.normalized * currentMaxSpeed;
+
+                // Aplicamos a velocidade limitada, mantendo a velocidade Y (para o pulo/gravidade)
+                body.linearVelocity = new Vector3(limitedVelocity.x, body.linearVelocity.y, limitedVelocity.z);
+            }
+
+            // 5. Rotaï¿½ï¿½o e Animaï¿½ï¿½o (Seu cï¿½digo de rotaï¿½ï¿½o estï¿½ bom)
             Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.fixedDeltaTime); // Use Time.fixedDeltaTime
+
+            // Lï¿½gica de Animaï¿½ï¿½o (use a velocidade real do Rigidbody)
+            float animationSpeed = flatVelocity.magnitude / maxSpeed;
+            animator.speed = Mathf.Max(1f, animationSpeed); // Garante que a velocidade mï¿½nima seja 1
             animator.SetBool("Run", true);
         }
-        else
+        else // Desaceleraï¿½ï¿½o
         {
-            _currentSpeed -= acelleration * 2 * Time.deltaTime;
-            if (_currentSpeed <= 0)
+            // 6. Desaceleraï¿½ï¿½o (Opcional: A fï¿½sica jï¿½ faz isso com Drag)
+            // Se vocï¿½ quiser uma parada mais abrupta, aumente o Drag (Arrasto) no Rigidbody.
+            // Se quiser uma parada suave, use o Drag padrï¿½o.
+
+            // Para garantir que ele pare completamente no plano XZ
+            Vector3 flatVelocity = new Vector3(body.linearVelocity.x, 0f, body.linearVelocity.z);
+            if (flatVelocity.magnitude > 0.1f)
             {
-                _currentSpeed = 0;
-                animator.SetBool("Run", false);
-                animator.speed = 1;
+                // Aplica uma forï¿½a contrï¿½ria para desacelerar
+                body.AddForce(-flatVelocity.normalized * acceleration * 0.5f, ForceMode.Impulse);
             }
-            else transform.position += _currentSpeed * Time.deltaTime * _lastDirection;
+            else
+            {
+                // Zera a velocidade XZ para evitar deslize
+                body.linearVelocity = new Vector3(0f, body.linearVelocity.y, 0f);
+            }
+
+            // Lï¿½gica de Animaï¿½ï¿½o
+            animator.SetBool("Run", false);
+            animator.speed = 1;
         }
     }
 
     /*    PULO
-     *    Para pular, o código pega o Rigidbody do Player e aplica uma velocidade linear (em linha reta), essa velocidade
-     * é um Vetor para cima (0, 1, 0) multiplicado pela variável de força do pulo que vai determinar o quão alto o Player
-     * irá pular.
-     *    Também é feita uma alteração na velocidade da animação para o valor padrão (1), isso evita que a velocidade da 
-     * animação seja a mesma da velocidade da corrida que está sendo alterada constantemente no método de andar Walk().
+     *    Para pular, o cï¿½digo pega o Rigidbody do Player e aplica uma velocidade linear (em linha reta), essa velocidade
+     * ï¿½ um Vetor para cima (0, 1, 0) multiplicado pela variï¿½vel de forï¿½a do pulo que vai determinar o quï¿½o alto o Player
+     * irï¿½ pular.
+     *    Tambï¿½m ï¿½ feita uma alteraï¿½ï¿½o na velocidade da animaï¿½ï¿½o para o valor padrï¿½o (1), isso evita que a velocidade da 
+     * animaï¿½ï¿½o seja a mesma da velocidade da corrida que estï¿½ sendo alterada constantemente no mï¿½todo de andar Walk().
      */
     public void Jump()
     {
@@ -102,17 +124,17 @@ public class PlayerSpeed : MonoBehaviour
     }
 
     /*    UPDATE
-     *    É posicionado uma esfera invisível que checa se o Player está tocando o chão, essa esfera está posicionada na
-     * mesma posição do transform de groundCheck, possui um raio do tamanho de groundDistance e uma máscara da camada
-     * que vai ser considerada o "chão" (groundMask). Se a esfera estiver colidindo com qualquer objeto que tenha essa
-     * camada, retorna true para a variável _isGrounded, ou seja, o Player está tocando o chão.
-     *    É feito uma checagem se o Player não estiver no chão, então a animação de cair "Falling", será marcada como true.
-     * Caso ele estiver tocando o chão, "Falling" será false e o trigger de aterrisagem "Land" será marcado (é configurado
-     * no Animator para a animação de aterrisagem só acontecer após a animação de cair, para ele não ficar repetindo a
-     * animação de aterrisagem a cada frame.
-     *    O método de andar é executado.
-     *    O método de pulo só é executado se o Player estiver no chão e apertar a tecla Espaço.
-     *    O texto do velocímetro é alterado constantemente para a velocidade atual (_currentSpeed), que é transformada em
+     *    ï¿½ posicionado uma esfera invisï¿½vel que checa se o Player estï¿½ tocando o chï¿½o, essa esfera estï¿½ posicionada na
+     * mesma posiï¿½ï¿½o do transform de groundCheck, possui um raio do tamanho de groundDistance e uma mï¿½scara da camada
+     * que vai ser considerada o "chï¿½o" (groundMask). Se a esfera estiver colidindo com qualquer objeto que tenha essa
+     * camada, retorna true para a variï¿½vel _isGrounded, ou seja, o Player estï¿½ tocando o chï¿½o.
+     *    ï¿½ feito uma checagem se o Player nï¿½o estiver no chï¿½o, entï¿½o a animaï¿½ï¿½o de cair "Falling", serï¿½ marcada como true.
+     * Caso ele estiver tocando o chï¿½o, "Falling" serï¿½ false e o trigger de aterrisagem "Land" serï¿½ marcado (ï¿½ configurado
+     * no Animator para a animaï¿½ï¿½o de aterrisagem sï¿½ acontecer apï¿½s a animaï¿½ï¿½o de cair, para ele nï¿½o ficar repetindo a
+     * animaï¿½ï¿½o de aterrisagem a cada frame.
+     *    O mï¿½todo de andar ï¿½ executado.
+     *    O mï¿½todo de pulo sï¿½ ï¿½ executado se o Player estiver no chï¿½o e apertar a tecla Espaï¿½o.
+     *    O texto do velocï¿½metro ï¿½ alterado constantemente para a velocidade atual (_currentSpeed), que ï¿½ transformada em
      * string para poder ser exibida na UI. 
      */
     private void Update()
@@ -124,8 +146,12 @@ public class PlayerSpeed : MonoBehaviour
             animator.SetBool("Falling", false);
             animator.SetTrigger("Land");
         }
-        Walk();
         if (Input.GetKeyDown(KeyCode.Space) && _isGrounded) Jump();
         velocimeter.text = _currentSpeed.ToString();
+    }
+
+    private void FixedUpdate()
+    {
+        Walk();
     }
 }

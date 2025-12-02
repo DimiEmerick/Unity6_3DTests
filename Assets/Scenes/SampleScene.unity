@@ -3027,7 +3027,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 465592709}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 50
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -3041,7 +3041,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
@@ -9418,6 +9418,10 @@ PrefabInstance:
       propertyPath: velocimeter
       value: 
       objectReference: {fileID: 103473529}
+    - target: {fileID: 2875970006392199380, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
+      propertyPath: acelleration
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 4041960229821209911, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
       propertyPath: m_Name
       value: PFB_PlayerNinja
@@ -9433,10 +9437,6 @@ PrefabInstance:
     - target: {fileID: 4889092148790788290, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
       propertyPath: m_TagString
       value: GroundCheck
-      objectReference: {fileID: 0}
-    - target: {fileID: 5537874167983960960, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7751359399559996960, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
       propertyPath: lifeText

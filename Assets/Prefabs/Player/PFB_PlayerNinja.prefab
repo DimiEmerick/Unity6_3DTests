@@ -165,6 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59e5442b93e3435468504929cb91071e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthBase
+  lifeText: {fileID: 0}
   startLife: 10
   currentLife: 0
   healMultiplier: 1
@@ -217,7 +218,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!1 &4889092148790788290
 GameObject:
   m_ObjectHideFlags: 0
