@@ -143,8 +143,8 @@ MonoBehaviour:
   body: {fileID: 5537874167983960960}
   velocimeter: {fileID: 0}
   health: {fileID: 7751359399559996960}
-  acelleration: 10
-  maxSpeed: 20
+  acceleration: 0.5
+  maxSpeed: 10
   turnSpeed: 250
   forceJump: 10
   groundMask:
@@ -152,6 +152,9 @@ MonoBehaviour:
     m_Bits: 8
   groundCheck: {fileID: 8750392193913695956}
   groundDistance: 0.25
+  linearVelocityX: {fileID: 0}
+  linearVelocityZ: {fileID: 0}
+  magnitude: {fileID: 0}
   _currentSpeed: 0
 --- !u!114 &7751359399559996960
 MonoBehaviour:
@@ -190,7 +193,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.8, z: 0.45}
+  m_Size: {x: 1, y: 1.8, z: 0.8}
   m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!54 &5537874167983960960
 Rigidbody:

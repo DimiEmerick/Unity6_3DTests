@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class EnemyBase : MonoBehaviour
 {
+    public Animator animator;
     public HealthBase health;
     public Collider enemyCollider;
+    public int damageAmount = 1;
+    public float animationDuration = 1f;
     public float rotationSpeed = 5f;
     public bool lookAtPlayer = false;
 
@@ -17,7 +20,7 @@ public class EnemyBase : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log("Colidiu com: " + collision.transform.name);
-        if (collision.transform.TryGetComponent<PlayerSpeed>(out var player)) player.health.Damage(1);
+        if (collision.transform.TryGetComponent<PlayerSpeed>(out var player)) Attack(player);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -26,13 +29,25 @@ public class EnemyBase : MonoBehaviour
         {
             health.Damage(1);
             _player.Jump();
-            if (health.currentLife <= 0) OnKill();
+            if (health.currentLife <= 0) Kill();
         } 
     }
 
-    public virtual void OnKill()
+    protected virtual void Attack(PlayerSpeed player)
+    {
+        player.health.Damage(damageAmount);
+        animator?.SetTrigger("Attack");
+    }
+
+    protected virtual void Kill()
     {
         enemyCollider.gameObject.SetActive(false);
+        animator?.SetTrigger("Death");
+        if (health.destroyOnKill) 
+        {
+            Debug.Log("Matou o " + transform.name);
+            Destroy(gameObject, animationDuration);
+        }
     }
 
     private void Update()

@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System;
 
 public class HealthBase : MonoBehaviour
 {
@@ -29,17 +30,8 @@ public class HealthBase : MonoBehaviour
 
     public void Damage(float damage)
     {
-        if (currentLife > 0)
-        {
-            currentLife -= damage * damageMultiplier;
-            UpdateLifeUI(currentLife);
-        }
-        else Kill();
-    }
-
-    private void Kill()
-    {
-        if (destroyOnKill) Destroy(gameObject);
+        currentLife -= damage * damageMultiplier;
+        UpdateLifeUI(currentLife);
     }
 
     public void UpdateLifeUI(float life)
