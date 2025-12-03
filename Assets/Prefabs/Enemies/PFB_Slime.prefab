@@ -51,10 +51,11 @@ MonoBehaviour:
   animator: {fileID: 7748086863234286218}
   health: {fileID: 6287212542836002545}
   enemyCollider: {fileID: 7982635598226091098}
+  body: {fileID: 3595597653101643912}
   damageAmount: 1
   animationDuration: 1.4
   rotationSpeed: 2
-  lookAtPlayer: 0
+  lookAtPlayer: 1
 --- !u!114 &6287212542836002545
 MonoBehaviour:
   m_ObjectHideFlags: 0

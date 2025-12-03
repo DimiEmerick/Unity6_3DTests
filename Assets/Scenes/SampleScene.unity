@@ -1166,7 +1166,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.06
   m_Height: 0.32
@@ -9955,14 +9955,34 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 768209625108310490, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
       propertyPath: m_Size.x
-      value: 0.40000004
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 768209625108310490, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
+      propertyPath: m_Size.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 768209625108310490, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
       propertyPath: m_Size.z
-      value: 0.7
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 768209625108310490, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
+      propertyPath: m_Center.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 768209625108310490, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
       propertyPath: m_Center.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519495872938035951, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
+      propertyPath: m_Size.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519495872938035951, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
+      propertyPath: m_Size.z
+      value: 0.8000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519495872938035951, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
+      propertyPath: m_Center.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2875970006392199380, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
@@ -10719,7 +10739,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.06
   m_Height: 0.32
@@ -11421,16 +11441,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6287212542836002545, guid: a003e99f723e8a84c8415962e6414404, type: 3}
-      propertyPath: destroyOnKill
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8104136886019979228, guid: a003e99f723e8a84c8415962e6414404, type: 3}
       propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8104136886019979228, guid: a003e99f723e8a84c8415962e6414404, type: 3}
-      propertyPath: lookAtPlayer
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8199117157532652578, guid: a003e99f723e8a84c8415962e6414404, type: 3}

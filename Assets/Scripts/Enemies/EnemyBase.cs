@@ -5,6 +5,7 @@ public class EnemyBase : MonoBehaviour
     public Animator animator;
     public HealthBase health;
     public Collider enemyCollider;
+    public Rigidbody body;
     public int damageAmount = 1;
     public float animationDuration = 1f;
     public float rotationSpeed = 5f;
@@ -19,7 +20,7 @@ public class EnemyBase : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Colidiu com: " + collision.transform.name);
+        Debug.Log(transform.name + " colidiu com: " + collision.transform.name);
         if (collision.transform.TryGetComponent<PlayerSpeed>(out var player)) Attack(player);
     }
 
@@ -41,7 +42,8 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void Kill()
     {
-        enemyCollider.gameObject.SetActive(false);
+        enemyCollider.enabled = false;
+        body.useGravity = false;
         animator?.SetTrigger("Death");
         if (health.destroyOnKill) 
         {
