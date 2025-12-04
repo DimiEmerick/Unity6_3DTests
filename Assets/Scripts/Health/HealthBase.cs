@@ -11,6 +11,9 @@ public class HealthBase : MonoBehaviour
     public float damageMultiplier = 1f;
     public bool destroyOnKill = false;
 
+    public Action<HealthBase> OnKill;
+    public Action<HealthBase> OnDamage;
+
     private void Awake()
     {
         ResetLife();
@@ -31,7 +34,27 @@ public class HealthBase : MonoBehaviour
     public void Damage(float damage)
     {
         currentLife -= damage * damageMultiplier;
+        if (currentLife <= 0) Kill();
         UpdateLifeUI(currentLife);
+        OnDamage?.Invoke(this);
+    }
+
+    public Vector3 Damage(float damage, Vector3 hitPosition)
+    {
+        currentLife -= damage * damageMultiplier;
+        if (currentLife <= 0) Kill();
+        UpdateLifeUI(currentLife);
+        Vector3 knockbackDirection = (transform.position - hitPosition).normalized;
+        OnDamage?.Invoke(this);
+        return knockbackDirection;
+    }
+
+    public void Kill()
+    {
+        gameObject.GetComponent<Collider>().enabled = false;
+        gameObject.GetComponent<Rigidbody>().useGravity = false;
+        gameObject.GetComponentInChildren<Animator>()?.SetTrigger("Death");
+        OnKill?.Invoke(this);
     }
 
     public void UpdateLifeUI(float life)

@@ -16,6 +16,7 @@ public class EnemyBase : MonoBehaviour
     private void Awake()
     {
         _player = FindAnyObjectByType<PlayerSpeed>();
+        health.OnKill += OnKill;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -30,21 +31,18 @@ public class EnemyBase : MonoBehaviour
         {
             health.Damage(1);
             _player.Jump();
-            if (health.currentLife <= 0) Kill();
         } 
     }
 
     protected virtual void Attack(PlayerSpeed player)
     {
-        player.health.Damage(damageAmount);
+        Vector3 knockbackDirection = player.health.Damage(damageAmount, transform.position);
+        player.Knockback(knockbackDirection);
         animator?.SetTrigger("Attack");
     }
 
-    protected virtual void Kill()
+    protected virtual void OnKill(HealthBase health)
     {
-        enemyCollider.enabled = false;
-        body.useGravity = false;
-        animator?.SetTrigger("Death");
         if (health.destroyOnKill) 
         {
             Debug.Log("Matou o " + transform.name);
@@ -61,5 +59,10 @@ public class EnemyBase : MonoBehaviour
             Quaternion lookRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
         }
+    }
+
+    private void OnDestroy()
+    {
+        health.OnKill -= OnKill;
     }
 }

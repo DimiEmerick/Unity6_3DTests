@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -26,8 +27,16 @@ public class PlayerSpeed : MonoBehaviour
 
     private float _boostSpeed;
     [SerializeField] private float _currentSpeed;
+    private bool _isDead;
     private bool _isGrounded;
     //  private bool _isBoosting;
+
+    private void Awake()
+    {
+        _isDead = false;
+        health.OnDamage += OnDamage;
+        health.OnKill += OnKill;
+    }
 
     private void Start()
     {
@@ -37,6 +46,7 @@ public class PlayerSpeed : MonoBehaviour
 
     private void Walk()
     {
+        if (_isDead) { return; }
         //  Cálculo da Direção
         Vector3 camForward = Camera.main.transform.forward;
         Vector3 camRight = Camera.main.transform.right;
@@ -93,33 +103,66 @@ public class PlayerSpeed : MonoBehaviour
         }
         else // Desaceleração
         {
-            //  Desaceleração (Opcional: A física já faz isso com Drag)
-            //  Se você quiser uma parada mais abrupta, aumente o Drag (Arrasto) no Rigidbody.
-            //  Se quiser uma parada suave, use o Drag padrão.
-
-            // Para garantir que ele pare completamente no plano XZ
-            Vector3 flatVelocity = new Vector3(body.linearVelocity.x, 0f, body.linearVelocity.z);
-            if (flatVelocity.magnitude > 0.3f)
-            {
-                // Aplica uma força contrária para desacelerar
-                body.AddForce(0.5f * acceleration * -flatVelocity.normalized, ForceMode.Impulse);
-            }
-            else
-            {
-                // Zera a velocidade XZ para evitar deslize
-                body.linearVelocity = new Vector3(0f, body.linearVelocity.y, 0f);
-            }
+            Desaccelerate();
 
             // Lógica de Animação
             animator.SetBool("Run", false);
             animator.speed = 1;
-            velocimeter.text = flatVelocity.magnitude.ToString("F1");
         }
     }
+
     public void Jump()
     {
+        if (_isDead) { return; }
         body.linearVelocity = Vector3.up * forceJump; //  Aplica uma velocidade linear para cima multiplicado pela força do pulo
         animator.SetTrigger("Jump");  // Aplica o trigger de animação do pulo
+    }
+
+    private void Desaccelerate(float minimumMagnitude = .3f)
+    {
+        //  Desaceleração (Opcional: A física já faz isso com Drag)
+        //  Se você quiser uma parada mais abrupta, aumente o Drag (Arrasto) no Rigidbody.
+        //  Se quiser uma parada suave, use o Drag padrão.
+
+        // Para garantir que ele pare completamente no plano XZ
+        Vector3 flatVelocity = new Vector3(body.linearVelocity.x, 0f, body.linearVelocity.z);
+        if (flatVelocity.magnitude > minimumMagnitude)
+        {
+            // Aplica uma força contrária para desacelerar
+            body.AddForce(0.5f * acceleration * -flatVelocity.normalized, ForceMode.Impulse);
+        }
+        else
+        {
+            // Zera a velocidade XZ para evitar deslize
+            body.linearVelocity = new Vector3(0f, body.linearVelocity.y, 0f);
+        }
+        velocimeter.text = flatVelocity.magnitude.ToString("F1");
+    }
+
+    private void OnDamage(HealthBase health) 
+    {
+        StartCoroutine(OnDamageCoroutine());
+    }
+    IEnumerator OnDamageCoroutine()
+    {
+        animator.SetTrigger("Damage");
+        _isDead = true;
+        yield return new WaitForSeconds(3);
+        _isDead = false;
+    }
+
+    private void OnKill(HealthBase health) 
+    {
+        _isDead = true;
+        Desaccelerate(999f);
+        velocimeter.text = "0,0";
+    }
+
+    public void Knockback(Vector3 knockbackDirection, float verticalKnockback = 2f, float knockbackForce = 10f)
+    {
+        knockbackDirection.y = verticalKnockback;
+        body.linearVelocity = new Vector3(0f, body.linearVelocity.y, 0f);
+        body.AddForce(knockbackDirection.normalized * knockbackForce, ForceMode.Impulse);
     }
 
     private void Update()
@@ -138,4 +181,11 @@ public class PlayerSpeed : MonoBehaviour
         Walk();  //  Chamada do método Walk() para melhor controle da física
         if (Input.GetKeyDown(KeyCode.Space) && _isGrounded) Jump();  //  Se o Player apertar a tecla Espaço e estiver no chão, o método Jump() é chamado
     }
+
+    private void OnDestroy()
+    {
+        health.OnDamage -= OnDamage;
+        health.OnKill -= OnKill;
+    }
+
 }
