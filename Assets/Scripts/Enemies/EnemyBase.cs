@@ -37,6 +37,7 @@ public class EnemyBase : MonoBehaviour
     protected virtual void Attack(PlayerSpeed player)
     {
         Vector3 knockbackDirection = player.health.Damage(damageAmount, transform.position);
+        player.animator.SetTrigger("Damage");
         player.Knockback(knockbackDirection);
         animator?.SetTrigger("Attack");
     }
