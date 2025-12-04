@@ -145,7 +145,6 @@ public class PlayerSpeed : MonoBehaviour
     }
     IEnumerator OnDamageCoroutine()
     {
-        animator.SetTrigger("Damage");
         _isDead = true;
         yield return new WaitForSeconds(3);
         _isDead = false;
