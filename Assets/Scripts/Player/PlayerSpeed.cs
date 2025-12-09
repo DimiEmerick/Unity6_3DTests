@@ -146,7 +146,8 @@ public class PlayerSpeed : MonoBehaviour
     IEnumerator OnDamageCoroutine()
     {
         _isDead = true;
-        yield return new WaitForSeconds(3);
+        animator.SetTrigger("Damage");
+        yield return new WaitForSeconds(2);
         _isDead = false;
     }
 
@@ -157,7 +158,7 @@ public class PlayerSpeed : MonoBehaviour
         velocimeter.text = "0,0";
     }
 
-    public void Knockback(Vector3 knockbackDirection, float verticalKnockback = 2f, float knockbackForce = 10f)
+    public void Knockback(Vector3 knockbackDirection, float verticalKnockback = 1f, float knockbackForce = 7f)
     {
         knockbackDirection.y = verticalKnockback;
         body.linearVelocity = new Vector3(0f, body.linearVelocity.y, 0f);
