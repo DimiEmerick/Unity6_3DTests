@@ -26,9 +26,9 @@ public class PlayerSpeed : MonoBehaviour
     public TextMeshProUGUI magnitude;
 
     private float _boostSpeed;
-    [SerializeField] private float _currentSpeed;
     private bool _isDead;
     private bool _isGrounded;
+    private bool _wasGrounded;
     //  private bool _isBoosting;
 
     private void Awake()
@@ -40,7 +40,6 @@ public class PlayerSpeed : MonoBehaviour
 
     private void Start()
     {
-        _currentSpeed = 0f;
         _boostSpeed = maxSpeed * 2f;
     }
 
@@ -167,12 +166,14 @@ public class PlayerSpeed : MonoBehaviour
 
     private void Update()
     {
+        _wasGrounded = _isGrounded;
         _isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if (!_isGrounded) animator.SetBool("Falling", true);  //  Define como true o bool da animação de queda se o Player não estiver no chão 
         else
         {
             animator.SetBool("Falling", false);  //  Define como false o bool da animação de queda se o Player estiver no chão
-            animator.SetTrigger("Land");  //  Ativa o trigger da animação de aterrissagem
+            if(!_wasGrounded)
+                animator.SetTrigger("Land");  //  Ativa o trigger da animação de aterrissagem
         }
     }
 

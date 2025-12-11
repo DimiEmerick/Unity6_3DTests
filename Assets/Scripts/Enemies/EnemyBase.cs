@@ -37,13 +37,14 @@ public class EnemyBase : MonoBehaviour
     protected virtual void Attack(PlayerSpeed player)
     {
         Vector3 knockbackDirection = player.health.Damage(damageAmount, transform.position);
-        //  player.animator.SetTrigger("Damage");
         player.Knockback(knockbackDirection);
         animator?.SetTrigger("Attack");
     }
 
     protected virtual void OnKill(HealthBase health)
     {
+        gameObject.GetComponent<Collider>().enabled = false;
+        gameObject.GetComponent<Rigidbody>().useGravity = false;
         if (health.destroyOnKill) 
         {
             Debug.Log("Matou o " + transform.name);

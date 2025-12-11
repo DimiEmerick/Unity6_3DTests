@@ -10305,6 +10305,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2875970006392199380, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
+      propertyPath: forceJump
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2875970006392199380, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
       propertyPath: magnitude
       value: 
       objectReference: {fileID: 1231848936}
@@ -10315,6 +10319,10 @@ PrefabInstance:
     - target: {fileID: 2875970006392199380, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
       propertyPath: acelleration
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2875970006392199380, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
+      propertyPath: groundDistance
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2875970006392199380, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
       propertyPath: linearVelocityX
@@ -10339,6 +10347,10 @@ PrefabInstance:
     - target: {fileID: 4889092148790788290, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
       propertyPath: m_TagString
       value: GroundCheck
+      objectReference: {fileID: 0}
+    - target: {fileID: 5084429265745954878, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7751359399559996960, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
       propertyPath: lifeText

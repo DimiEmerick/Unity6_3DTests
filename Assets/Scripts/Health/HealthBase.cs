@@ -42,17 +42,19 @@ public class HealthBase : MonoBehaviour
     public Vector3 Damage(float damage, Vector3 hitPosition)
     {
         currentLife -= damage * damageMultiplier;
-        if (currentLife <= 0) Kill();
         UpdateLifeUI(currentLife);
         Vector3 knockbackDirection = (transform.position - hitPosition).normalized;
+        if (currentLife <= 0)
+        {
+            Kill();
+            return knockbackDirection;
+        }
         OnDamage?.Invoke(this);
         return knockbackDirection;
     }
 
     public void Kill()
     {
-        gameObject.GetComponent<Collider>().enabled = false;
-        gameObject.GetComponent<Rigidbody>().useGravity = false;
         gameObject.GetComponentInChildren<Animator>()?.SetTrigger("Death");
         OnKill?.Invoke(this);
     }
