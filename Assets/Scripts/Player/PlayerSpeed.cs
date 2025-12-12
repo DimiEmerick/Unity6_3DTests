@@ -166,6 +166,7 @@ public class PlayerSpeed : MonoBehaviour
 
     private void Update()
     {
+        if (_isDead) return;
         _wasGrounded = _isGrounded;
         _isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if (!_isGrounded) animator.SetBool("Falling", true);  //  Define como true o bool da animação de queda se o Player não estiver no chão 

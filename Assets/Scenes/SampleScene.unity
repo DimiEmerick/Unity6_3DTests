@@ -10356,6 +10356,10 @@ PrefabInstance:
       propertyPath: lifeText
       value: 
       objectReference: {fileID: 1593634111}
+    - target: {fileID: 7751359399559996960, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
+      propertyPath: startLife
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7987582899061961381, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.34763
