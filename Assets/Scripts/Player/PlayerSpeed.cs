@@ -110,7 +110,7 @@ public class PlayerSpeed : MonoBehaviour
         }
     }
 
-    public void Jump()
+    public void Jump(float forceJump = 3f)
     {
         if (_isDead) { return; }
         body.linearVelocity = Vector3.up * forceJump; //  Aplica uma velocidade linear para cima multiplicado pela força do pulo
@@ -181,7 +181,7 @@ public class PlayerSpeed : MonoBehaviour
     private void FixedUpdate()
     {
         Walk();  //  Chamada do método Walk() para melhor controle da física
-        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded) Jump();  //  Se o Player apertar a tecla Espaço e estiver no chão, o método Jump() é chamado
+        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded) Jump(forceJump);  //  Se o Player apertar a tecla Espaço e estiver no chão, o método Jump() é chamado
     }
 
     private void OnDestroy()
@@ -189,5 +189,4 @@ public class PlayerSpeed : MonoBehaviour
         health.OnDamage -= OnDamage;
         health.OnKill -= OnKill;
     }
-
 }
