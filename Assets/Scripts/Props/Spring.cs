@@ -13,7 +13,10 @@ public class Spring : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        _player.Jump(forceJump);
-        transform.DOScale(.5f, 1f).SetEase(Ease.OutBack).SetLoops(2, LoopType.Yoyo);
+        if (other.transform.CompareTag("Player"))
+        {
+            _player.Jump(forceJump);
+            transform.DOScale(2f, .5f).SetEase(Ease.OutBack).SetLoops(2, LoopType.Yoyo);
+        }
     }
 }
