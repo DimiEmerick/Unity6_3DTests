@@ -15,6 +15,9 @@ public class PlayerSpeed : MonoBehaviour
     public float turnSpeed = 10f;
     public float forceJump = 3f;
 
+    [Header("Animations")]
+    public float damageAnimationDuration = 2f;
+
     [Header("Ground Check")]
     public LayerMask groundMask;         //  Layer que representa o chão
     public Transform groundCheck;        //  Um vazio posicionado no pé do personagem
@@ -110,7 +113,7 @@ public class PlayerSpeed : MonoBehaviour
         }
     }
 
-    public void Jump(float forceJump = 3f)
+    public void Jump(float forceJump = 7f)
     {
         if (_isDead) { return; }
         body.linearVelocity = Vector3.up * forceJump; //  Aplica uma velocidade linear para cima multiplicado pela força do pulo
@@ -145,8 +148,9 @@ public class PlayerSpeed : MonoBehaviour
     IEnumerator OnDamageCoroutine()
     {
         _isDead = true;
+        if (health.currentLife >= 0) health.Kill();
         animator.SetTrigger("Damage");
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(damageAnimationDuration);
         _isDead = false;
     }
 
