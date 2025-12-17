@@ -10330,22 +10330,6 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1519495872938035951, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
-      propertyPath: m_Size.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1519495872938035951, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
-      propertyPath: m_Size.z
-      value: 0.8000001
-      objectReference: {fileID: 0}
-    - target: {fileID: 1519495872938035951, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
-      propertyPath: m_Center.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2875970006392199380, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
-      propertyPath: forceJump
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 2875970006392199380, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
       propertyPath: magnitude
       value: 
@@ -10359,10 +10343,6 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2875970006392199380, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
-      propertyPath: groundDistance
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2875970006392199380, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
       propertyPath: linearVelocityX
       value: 
       objectReference: {fileID: 1670783003}
@@ -10370,6 +10350,10 @@ PrefabInstance:
       propertyPath: linearVelocityZ
       value: 
       objectReference: {fileID: 426122056}
+    - target: {fileID: 2875970006392199380, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
+      propertyPath: damageAnimationDuration
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4041960229821209911, guid: ecb2a6e605c7dfd4389fcdc60ec95366, type: 3}
       propertyPath: m_Name
       value: PFB_PlayerNinja
