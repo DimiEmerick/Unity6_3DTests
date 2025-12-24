@@ -331,7 +331,7 @@ MonoBehaviour:
         DecelTime: 0
   PlayerIndex: -1
   AutoEnableInputs: 1
---- !u!1 &531693816
+--- !u!1 &234179691
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -339,23 +339,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 531693819}
-  - component: {fileID: 531693818}
-  - component: {fileID: 531693817}
-  m_Layer: 3
+  - component: {fileID: 234179694}
+  - component: {fileID: 234179693}
+  - component: {fileID: 234179692}
+  m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
---- !u!154 &531693817
+--- !u!154 &234179692
 TerrainCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 531693816}
+  m_GameObject: {fileID: 234179691}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -369,13 +369,13 @@ TerrainCollider:
   serializedVersion: 2
   m_TerrainData: {fileID: 15600000, guid: 26ba1c49b64604040a0414dbb01dc70b, type: 2}
   m_EnableTreeColliders: 1
---- !u!218 &531693818
+--- !u!218 &234179693
 Terrain:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 531693816}
+  m_GameObject: {fileID: 234179691}
   m_Enabled: 1
   serializedVersion: 6
   m_TerrainData: {fileID: 15600000, guid: 26ba1c49b64604040a0414dbb01dc70b, type: 2}
@@ -409,13 +409,13 @@ Terrain:
   m_EnableHeightmapRayTracing: 1
   m_EnableTreesAndDetailsRayTracing: 0
   m_TreeMotionVectorModeOverride: 3
---- !u!4 &531693819
+--- !u!4 &234179694
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 531693816}
+  m_GameObject: {fileID: 234179691}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -500, y: 0, z: -500}
@@ -529,8 +529,66 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerFight
   animator: {fileID: 1888311443}
   characterController: {fileID: 1639960452}
-  speed: 150
+  speed: 100
   turnSpeed: 250
+  move:
+    m_Name: Move
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: aebe5fcf-bffd-4ea3-b902-bfe7550b74c5
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 2D Vector
+      m_Id: 199a49f3-093e-44c9-b4b2-233b3dcbbbd0
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 4
+    - m_Name: up
+      m_Id: e927b938-1d36-4af7-bde5-71616699b3d8
+      m_Path: <Keyboard>/w
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    - m_Name: down
+      m_Id: 660f87aa-7eb8-42e1-b1df-8e56f03c3bcc
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    - m_Name: left
+      m_Id: 7f92e733-174e-4834-885e-49479f57a75e
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    - m_Name: right
+      m_Id: 747703c0-f96a-4e45-af02-6c12c99e433b
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    m_Flags: 0
+  jump:
+    m_Name: Jump
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 5b9c21c4-bd23-47c2-a1e2-4c338c8c5cdc
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!1 &1715049042
 GameObject:
   m_ObjectHideFlags: 0
@@ -1672,5 +1730,5 @@ SceneRoots:
   - {fileID: 1811410021}
   - {fileID: 205413143}
   - {fileID: 1715049044}
-  - {fileID: 531693819}
+  - {fileID: 234179694}
   - {fileID: 1639960451}

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerFight : MonoBehaviour
 {
@@ -6,6 +7,9 @@ public class PlayerFight : MonoBehaviour
     public CharacterController characterController;
     public float speed;
     public float turnSpeed;
+
+    public InputAction move;
+    public InputAction jump;
 
     private void Walk()
     {
@@ -22,12 +26,15 @@ public class PlayerFight : MonoBehaviour
         if (Input.GetKey(KeyCode.S)) direction -= camForward;
         if (Input.GetKey(KeyCode.D)) direction += camRight;
 
+        direction = direction.normalized;
         characterController.SimpleMove(direction * Time.deltaTime * speed);
 
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
-
-        if (direction != Vector3.zero) animator.SetBool("Walk", true);
+        if (direction != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+            animator.SetBool("Walk", true);
+        }
         else animator.SetBool("Walk", false);
     }
 
