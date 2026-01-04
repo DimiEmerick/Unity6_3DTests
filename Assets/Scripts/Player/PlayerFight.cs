@@ -19,6 +19,11 @@ public class PlayerFight : MonoBehaviour
     private float verticalVelocity;
     private float speed;
 
+    [Header("Animation")]
+    private int animMoveSpeed;
+    private int animJump;
+    private int animGrounded;
+
     [Header("Input")]
     private float moveInput;
     private float turnInput;
@@ -26,7 +31,8 @@ public class PlayerFight : MonoBehaviour
     private void Start()
     {
         controller = GetComponent<CharacterController>();
-        animator = GetComponentInChildren<Animator>();
+        animator = GetComponent<Animator>();
+        SetupAnimator();
     }
 
     private void InputManagement()
@@ -44,6 +50,9 @@ public class PlayerFight : MonoBehaviour
         move *= speed;
         move.y = VerticalVelocityCalculation();
         controller.Move(move * Time.deltaTime);
+
+        //  Animations
+        animator.SetFloat(animMoveSpeed, speed * Mathf.Max(Mathf.Abs(moveInput), Mathf.Abs(turnInput)));
     }
 
     private void Turn()
@@ -63,25 +72,41 @@ public class PlayerFight : MonoBehaviour
         if (controller.isGrounded)
         {
             verticalVelocity = -1f;
-            if (Input.GetButtonDown("Jump")) verticalVelocity = Mathf.Sqrt(jumpHeight * gravity * 2);
+            animator.SetBool(animGrounded, true);
+            if (Input.GetButtonDown("Jump"))
+            {
+                verticalVelocity = Mathf.Sqrt(jumpHeight * gravity * 2);
+                animator.SetTrigger(animJump);
+            }
         }
-        else verticalVelocity -= gravity * Time.deltaTime;
+        else 
+        {
+            verticalVelocity -= gravity * Time.deltaTime;
+            animator.SetBool(animGrounded, false);
+        } 
         return verticalVelocity;
     }
 
-    private void MovementAnimation()
+    /* private void MovementAnimation()
     {
         if (Mathf.Abs(turnInput) > 0 || Mathf.Abs(moveInput) > 0) animator.SetBool("Walk", true);
         else animator.SetBool("Walk", false);
         if (controller.isGrounded) animator.SetTrigger("Land");
         else if (Input.GetButtonDown("Jump")) animator.SetTrigger("Jump");
-    }
+    } */
 
     private void Movement()
     {
         GroundMovement();
         Turn();
-        MovementAnimation();
+        //  MovementAnimation();
+    }
+
+    private void SetupAnimator()
+    {
+        animMoveSpeed = Animator.StringToHash("MoveSpeed");
+        animJump = Animator.StringToHash("Jump");
+        animGrounded = Animator.StringToHash("Grounded");
     }
 
     private void Update()

@@ -943,15 +943,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: d06a6742a7dced249a39358c28982b17, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.51362
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d06a6742a7dced249a39358c28982b17, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.00001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d06a6742a7dced249a39358c28982b17, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.11907
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d06a6742a7dced249a39358c28982b17, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1176,6 +1176,7 @@ GameObject:
   - component: {fileID: 1639960451}
   - component: {fileID: 1639960452}
   - component: {fileID: 1639960453}
+  - component: {fileID: 1639960454}
   m_Layer: 0
   m_Name: PlayerFighter
   m_TagString: Untagged
@@ -1218,13 +1219,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
-  m_Radius: 0.4
+  m_Height: 1.87
+  m_Radius: 0.25
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.01
   m_MinMoveDistance: 0.01
-  m_Center: {x: 0, y: 1.06, z: 0}
+  m_Center: {x: 0, y: 0.94, z: 0}
 --- !u!114 &1639960453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1244,6 +1245,28 @@ MonoBehaviour:
   turnSpeed: 4
   gravity: 9.81
   jumpHeight: 2
+--- !u!95 &1639960454
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639960450}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: d06a6742a7dced249a39358c28982b17, type: 3}
+  m_Controller: {fileID: 9100000, guid: 4384087fb3f7b1947a331871a3076f75, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1715049042
 GameObject:
   m_ObjectHideFlags: 0
