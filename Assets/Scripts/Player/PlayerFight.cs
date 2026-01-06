@@ -23,6 +23,7 @@ public class PlayerFight : MonoBehaviour
     private int animMoveSpeed;
     private int animJump;
     private int animGrounded;
+    private int animAttack;
 
     [Header("Input")]
     private float moveInput;
@@ -102,16 +103,26 @@ public class PlayerFight : MonoBehaviour
         //  MovementAnimation();
     }
 
+    private void Attack()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            animator.SetTrigger(animAttack);
+        }
+    }
+
     private void SetupAnimator()
     {
         animMoveSpeed = Animator.StringToHash("MoveSpeed");
         animJump = Animator.StringToHash("Jump");
         animGrounded = Animator.StringToHash("Grounded");
+        animAttack = Animator.StringToHash("Attack");
     }
 
     private void Update()
     {
         InputManagement();
         Movement();
+        Attack();
     }
 }
