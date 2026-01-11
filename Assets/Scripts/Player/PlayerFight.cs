@@ -18,6 +18,7 @@ public class PlayerFight : MonoBehaviour
 
     private float verticalVelocity;
     private float speed;
+    private bool isAttacking;
 
     [Header("Animation")]
     private int animMoveSpeed;
@@ -99,6 +100,7 @@ public class PlayerFight : MonoBehaviour
 
     private void Movement()
     {
+        if (isAttacking) return;
         GroundMovement();
         Turn();
         //  MovementAnimation();
@@ -115,6 +117,11 @@ public class PlayerFight : MonoBehaviour
         {
             animator.SetTrigger(animAttackStrong);
         }
+    }
+
+    public void SetAttackingState(int state)
+    {
+        isAttacking = (state == 1);
     }
 
     private void SetupAnimator()
