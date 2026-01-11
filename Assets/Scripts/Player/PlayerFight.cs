@@ -23,7 +23,8 @@ public class PlayerFight : MonoBehaviour
     private int animMoveSpeed;
     private int animJump;
     private int animGrounded;
-    private int animAttack;
+    private int animAttackNormal;
+    private int animAttackStrong;
 
     [Header("Input")]
     private float moveInput;
@@ -107,7 +108,12 @@ public class PlayerFight : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            animator.SetTrigger(animAttack);
+            animator.SetTrigger(animAttackNormal);
+        }
+
+        if (Input.GetButtonDown("Fire2"))
+        {
+            animator.SetTrigger(animAttackStrong);
         }
     }
 
@@ -116,7 +122,8 @@ public class PlayerFight : MonoBehaviour
         animMoveSpeed = Animator.StringToHash("MoveSpeed");
         animJump = Animator.StringToHash("Jump");
         animGrounded = Animator.StringToHash("Grounded");
-        animAttack = Animator.StringToHash("Attack");
+        animAttackNormal = Animator.StringToHash("Attack Normal");
+        animAttackStrong = Animator.StringToHash("Attack Strong");
     }
 
     private void Update()
