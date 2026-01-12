@@ -1162,13 +1162,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1.87
+  m_Height: 1.88
   m_Radius: 0.25
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.01
   m_MinMoveDistance: 0.01
-  m_Center: {x: 0, y: 0.94, z: 0}
+  m_Center: {x: 0, y: 0.92, z: 0}
 --- !u!114 &1639960453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1182,8 +1182,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerFight
   camera: {fileID: 205413143}
-  walkSpeed: 5
-  sprintSpeed: 10
+  walkSpeed: 3
+  sprintSpeed: 6
   sprintTransitSpeed: 5
   turnSpeed: 4
   gravity: 9.81
