@@ -46,6 +46,7 @@ public class PlayerFight : MonoBehaviour
 
     private void GroundMovement()
     {
+        if (isAttacking) return;
         Vector3 move = new Vector3(turnInput, 0, moveInput);
         move = camera.transform.TransformDirection(move);
         if (Input.GetKey(KeyCode.LeftShift)) speed = Mathf.Lerp(speed, sprintSpeed, sprintTransitSpeed * Time.deltaTime);
@@ -100,7 +101,6 @@ public class PlayerFight : MonoBehaviour
 
     private void Movement()
     {
-        if (isAttacking) return;
         GroundMovement();
         Turn();
         //  MovementAnimation();
