@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,10 +23,13 @@ public class PlayerFight : MonoBehaviour
 
     [Header("Animation")]
     private int animMoveSpeed;
+    private int animMoveSpeedX;
+    private int animMoveSpeedZ;
     private int animJump;
     private int animGrounded;
     private int animAttackNormal;
     private int animAttackStrong;
+    public float dampTime = 0.1f;
 
     [Header("Input")]
     private float moveInput;
@@ -54,9 +58,13 @@ public class PlayerFight : MonoBehaviour
         move *= speed;
         move.y = VerticalVelocityCalculation();
         controller.Move(move * Time.deltaTime);
+        Vector3 localMove = transform.InverseTransformDirection(move);
 
         //  Animations
-        animator.SetFloat(animMoveSpeed, speed * Mathf.Max(Mathf.Abs(moveInput), Mathf.Abs(turnInput)));
+        //  animator.SetFloat(animMoveSpeed, speed * Mathf.Max(Mathf.Abs(moveInput), Mathf.Abs(turnInput)));
+        localMove.Normalize();
+        animator.SetFloat(animMoveSpeedX, speed * localMove.x * Mathf.Max(Mathf.Abs(moveInput), Mathf.Abs(turnInput)), dampTime, Time.deltaTime);
+        animator.SetFloat(animMoveSpeedZ, speed * localMove.z * Mathf.Max(Mathf.Abs(moveInput), Mathf.Abs(turnInput)), dampTime, Time.deltaTime);
     }
 
     private void Turn()
@@ -127,6 +135,8 @@ public class PlayerFight : MonoBehaviour
     private void SetupAnimator()
     {
         animMoveSpeed = Animator.StringToHash("MoveSpeed");
+        animMoveSpeedX = Animator.StringToHash("MoveSpeedX");
+        animMoveSpeedZ = Animator.StringToHash("MoveSpeedZ");
         animJump = Animator.StringToHash("Jump");
         animGrounded = Animator.StringToHash("Grounded");
         animAttackNormal = Animator.StringToHash("Attack Normal");

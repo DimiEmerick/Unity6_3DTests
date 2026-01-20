@@ -1182,12 +1182,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerFight
   camera: {fileID: 205413143}
-  walkSpeed: 3
-  sprintSpeed: 6
+  walkSpeed: 1.5
+  sprintSpeed: 4
   sprintTransitSpeed: 5
-  turnSpeed: 4
+  turnSpeed: 5
   gravity: 9.81
   jumpHeight: 2
+  dampTime: 0.1
 --- !u!95 &1639960454
 Animator:
   serializedVersion: 7
