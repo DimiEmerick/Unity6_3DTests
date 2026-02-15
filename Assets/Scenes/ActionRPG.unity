@@ -1188,6 +1188,8 @@ MonoBehaviour:
   turnSpeed: 5
   gravity: 9.81
   jumpHeight: 2
+  groundedTimer: 0.1
+  stepVerticalVelocity: -2.5
   dampTime: 0.1
 --- !u!95 &1639960454
 Animator:

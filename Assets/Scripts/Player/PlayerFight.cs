@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +17,8 @@ public class PlayerFight : MonoBehaviour
     [SerializeField] private float turnSpeed = 2f;
     [SerializeField] private float gravity = 9.81f;
     [SerializeField] private float jumpHeight = 2f;
+    [SerializeField] private float groundedTimer = .1f;
+    [SerializeField] private float stepVerticalVelocity = -2f;
 
     private float verticalVelocity;
     private float speed;
@@ -81,9 +84,15 @@ public class PlayerFight : MonoBehaviour
 
     private float VerticalVelocityCalculation()
     {
+        StartCoroutine(VerticalVelocityCalculationCoroutine()); 
+        return verticalVelocity;
+    }
+
+    IEnumerator VerticalVelocityCalculationCoroutine()
+    {
         if (controller.isGrounded)
         {
-            verticalVelocity = -1f;
+            verticalVelocity = stepVerticalVelocity;  //  Controlar a queda quando já estiver no chão (útil para escadas)
             animator.SetBool(animGrounded, true);
             if (Input.GetButtonDown("Jump"))
             {
@@ -91,12 +100,13 @@ public class PlayerFight : MonoBehaviour
                 animator.SetTrigger(animJump);
             }
         }
-        else 
+        else
         {
             verticalVelocity -= gravity * Time.deltaTime;
-            animator.SetBool(animGrounded, false);
-        } 
-        return verticalVelocity;
+            yield return new WaitForSeconds(groundedTimer);
+            if (!controller.isGrounded) animator.SetBool(animGrounded, false);
+        }
+        yield return verticalVelocity;
     }
 
     /* private void MovementAnimation()
