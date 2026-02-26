@@ -1505,38 +1505,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8718778828885884488, guid: e5f4daf24146ee040b5a2d7a73b30aa0, type: 3}
   m_PrefabInstance: {fileID: 331392123}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1639960450 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2617119982630886854, guid: ea1cb0e3c773b914486c9beb9cc590f7, type: 3}
-  m_PrefabInstance: {fileID: 5083645714829953304}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1639960451 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3495692145863263997, guid: ea1cb0e3c773b914486c9beb9cc590f7, type: 3}
   m_PrefabInstance: {fileID: 5083645714829953304}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &1639960454
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1639960450}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: ca03bc99c77787c4db6d2db9e21d5306, type: 3}
-  m_Controller: {fileID: 9100000, guid: 4e634f3aacb96104d9e44a51f0884d2c, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1715049042
 GameObject:
   m_ObjectHideFlags: 0
@@ -2235,6 +2208,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jammo_LowPoly
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 82a2914d8f86c62488456950c8330e38, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2520,6 +2497,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Knight_Jumping
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 019b63ff603d2274aa8c75a40b96f584, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1330755669629619180, guid: 019b63ff603d2274aa8c75a40b96f584, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 3.7757225
@@ -2760,6 +2741,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: KyleRobot
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 73ffbc06802a247cfb1b26f4ee67eba8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 73ffbc06802a247cfb1b26f4ee67eba8, type: 3}
       propertyPath: m_Controller
       value: 
@@ -2844,7 +2829,7 @@ PrefabInstance:
       objectReference: {fileID: 205413143}
     - target: {fileID: 1582227177682052369, guid: ea1cb0e3c773b914486c9beb9cc590f7, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2617119982630886854, guid: ea1cb0e3c773b914486c9beb9cc590f7, type: 3}
       propertyPath: m_Name
@@ -2894,14 +2879,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6568732028786655393, guid: ea1cb0e3c773b914486c9beb9cc590f7, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2617119982630886854, guid: ea1cb0e3c773b914486c9beb9cc590f7, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1639960454}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea1cb0e3c773b914486c9beb9cc590f7, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

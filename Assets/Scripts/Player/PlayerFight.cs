@@ -41,7 +41,7 @@ public class PlayerFight : MonoBehaviour
     private void Start()
     {
         controller = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         SetupAnimator();
     }
 
