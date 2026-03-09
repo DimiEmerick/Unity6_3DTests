@@ -19,6 +19,7 @@ public class PlayerFight : MonoBehaviour
     [SerializeField] private float jumpHeight = 2f;
     [SerializeField] private float groundedTimer = .1f;
     [SerializeField] private float stepVerticalVelocity = -2f;
+    [SerializeField] private bool lockOn = false;
 
     private float verticalVelocity;
     private float speed;
@@ -74,7 +75,11 @@ public class PlayerFight : MonoBehaviour
     {
         if (Mathf.Abs(turnInput) > 0 || Mathf.Abs(moveInput) > 0)
         {
-            Vector3 currentLookDirection = controller.velocity.normalized;
+            Vector3 currentLookDirection;
+            if (lockOn == true)
+                currentLookDirection = Camera.main.transform.forward;
+            else
+                currentLookDirection = controller.velocity.normalized;
             currentLookDirection.y = 0;
             currentLookDirection.Normalize();
             Quaternion targetRotation = Quaternion.LookRotation(currentLookDirection);
