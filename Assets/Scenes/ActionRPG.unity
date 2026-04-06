@@ -1526,11 +1526,15 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: ca03bc99c77787c4db6d2db9e21d5306, type: 3}
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< Updated upstream
   m_Controller: {fileID: 9100000, guid: c496bbf5fa4801749b0009977e20fc67, type: 2}
 =======
   m_Controller: {fileID: 9100000, guid: 4384087fb3f7b1947a331871a3076f75, type: 2}
 >>>>>>> Stashed changes
+=======
+  m_Controller: {fileID: 9100000, guid: 5c5217b02bc6ffe4eb11348829c10598, type: 2}
+>>>>>>> parent of ff9a3fc (Animations tutorial)
 =======
   m_Controller: {fileID: 9100000, guid: 5c5217b02bc6ffe4eb11348829c10598, type: 2}
 >>>>>>> parent of ff9a3fc (Animations tutorial)
